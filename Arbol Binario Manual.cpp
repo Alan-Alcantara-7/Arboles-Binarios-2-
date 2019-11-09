@@ -39,3 +39,5 @@ int main(){
 	cout<<raiz->izquierda->izquierda->dato<<" "<<raiz->izquierda->derecha->dato<<" "<<raiz->derecha->derecha->dato<<endl;
 	return 0;
 }
+git remote add origin https://github.com/Alan-Alcantara-7/Arboles-Binarios-2-.git
+git push -u origin master
