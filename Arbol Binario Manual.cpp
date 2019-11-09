@@ -1,43 +1,93 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
-struct Nodo{
-	int dato;
-	Nodo* izquierda, *derecha;
+struct nodo{
+     int nro;
+     struct nodo *izq, *der;
 };
-Nodo* raiz = NULL;
-int main(){
-	Nodo *aux=raiz;
-	raiz = new Nodo();
-	raiz->dato=7;
-	raiz->izquierda=new Nodo();
-	raiz->derecha=new Nodo();
-	aux=raiz->izquierda;
-	aux->dato=5;
-	aux->izquierda=new Nodo();
-	aux->derecha=new Nodo();
-	aux=aux->izquierda;
-	aux->dato=2;
-	aux->izquierda=NULL;
-	aux->derecha=NULL;
-	aux=raiz->izquierda;
-	aux=aux->derecha;
-	aux->dato=3;
-	aux->izquierda=NULL;
-	aux->derecha=NULL;
-	aux=raiz->derecha;
-	aux->dato=4;
-	aux->izquierda=NULL;
-	aux->derecha=new Nodo();
-	aux=aux->derecha;
-	aux->dato=1;
-	aux->izquierda=NULL;
-	aux->derecha=NULL;
-	
-	cout<<"  "<<raiz->dato<<endl;
-	cout<<" "<<raiz->izquierda->dato<<" "<<raiz->derecha->dato<<endl;
-	cout<<raiz->izquierda->izquierda->dato<<" "<<raiz->izquierda->derecha->dato<<" "<<raiz->derecha->derecha->dato<<endl;
-	return 0;
+
+typedef struct nodo *ABB;
+
+
+ABB crearNodo(int x)
+{
+     ABB nuevoNodo = new(struct nodo);
+     nuevoNodo->nro = x;
+     nuevoNodo->izq = NULL;
+     nuevoNodo->der = NULL;
+
+     return nuevoNodo;
 }
-git remote add origin https://github.com/Alan-Alcantara-7/Arboles-Binarios-2-.git
-git push -u origin master
+void insertar(ABB &arbol, int x)
+{
+     if(arbol==NULL)
+     {
+           arbol = crearNodo(x);
+     }
+     else if(x < arbol->nro)
+          insertar(arbol->izq, x);
+     else if(x > arbol->nro)
+          insertar(arbol->der, x);
+}
+
+void preOrden(ABB arbol)
+{
+     if(arbol!=NULL)
+     {
+          cout << arbol->nro <<" ";
+          preOrden(arbol->izq);
+          preOrden(arbol->der);
+     }
+}
+
+
+
+void verArbol(ABB arbol, int n)
+{
+     if(arbol==NULL)
+          return;
+     verArbol(arbol->der, n+1);
+
+     for(int i=0; i<n; i++)
+         cout<<"   ";
+
+     cout<< arbol->nro <<endl;
+
+     verArbol(arbol->izq, n+1);
+}
+
+int main()
+{
+    ABB arbol = NULL;   
+
+    int n;  
+    int x; 
+
+    cout <<" ARBOL BINARIO DE BUSQUEDA"<<endl;
+
+    cout <<" Numero de nodos del arbol:  ";
+    cin >> n;
+    cout << endl;
+
+    for(int i=0; i<n; i++)
+    {
+        cout <<" Numero del nodo " << i+1 << ": ";
+        cin >> x;
+        insertar( arbol, x);
+    }
+
+    cout <<" Mostrando ABB "<<endl;
+    verArbol( arbol, 0);
+
+    cout << "\n Recorridos del Arbol Binario";
+
+    //cout << "\n\n En orden   :  ";   enOrden(arbol);
+    cout << "\n\n Pre Orden  :  ";   preOrden(arbol);
+    //cout << "\n\n Post Orden :  ";   postOrden(arbol);
+
+    cout << endl << endl;
+
+    system("pause");
+    return 0;
+}
