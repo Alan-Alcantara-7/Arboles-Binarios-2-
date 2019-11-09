@@ -41,7 +41,15 @@ void preOrden(ABB arbol)
      }
 }
 
-
+void enOrden(ABB arbol)
+{
+     if(arbol!=NULL)
+     {
+          enOrden(arbol->izq);
+          cout << arbol->nro << " ";
+          enOrden(arbol->der);
+     }
+}
 
 void verArbol(ABB arbol, int n)
 {
@@ -82,7 +90,7 @@ int main()
 
     cout << "\n Recorridos del Arbol Binario";
 
-    //cout << "\n\n En orden   :  ";   enOrden(arbol);
+    cout << "\n\n En orden   :  ";   enOrden(arbol);
     cout << "\n\n Pre Orden  :  ";   preOrden(arbol);
     //cout << "\n\n Post Orden :  ";   postOrden(arbol);
 
