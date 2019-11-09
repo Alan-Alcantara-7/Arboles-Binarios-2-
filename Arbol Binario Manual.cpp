@@ -51,6 +51,16 @@ void enOrden(ABB arbol)
      }
 }
 
+void postOrden(ABB arbol)
+{
+     if(arbol!=NULL)
+     {
+          postOrden(arbol->izq);
+          postOrden(arbol->der);
+          cout << arbol->nro << " ";
+     }
+}
+
 void verArbol(ABB arbol, int n)
 {
      if(arbol==NULL)
@@ -92,7 +102,7 @@ int main()
 
     cout << "\n\n En orden   :  ";   enOrden(arbol);
     cout << "\n\n Pre Orden  :  ";   preOrden(arbol);
-    //cout << "\n\n Post Orden :  ";   postOrden(arbol);
+    cout << "\n\n Post Orden :  ";   postOrden(arbol);
 
     cout << endl << endl;
 
